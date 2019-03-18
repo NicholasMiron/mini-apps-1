@@ -41,7 +41,7 @@
 
 body {
   margin: 0 auto;
-  background-color: lightgrey;
+  background-color: #d3d3d3;
   display:flex;
   flex-direction: column;
   align-items: center;

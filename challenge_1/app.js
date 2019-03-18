@@ -32,6 +32,7 @@ let populateBoard = function(size) {
 //Handle reset game
 document.getElementById('reset').addEventListener('click', () => {
   board.innerHTML = ''; //Clear the board
+  document.body.style.backgroundColor = '#d3d3d3';
   boardArr = [];        //Reset internal board
   Xturn = true;         //Set x to go first
   weHaveAWinner = false;//We no longer have a winner
@@ -50,6 +51,7 @@ let handleCellClick = function(row, cell) {
     //Handle winning condition
     if(checkForWinner(cellLoc)) {
       weHaveAWinner = true;
+      handleWinning();
     }
   }
 }
@@ -161,6 +163,14 @@ let updateInternalBoard = function(loc, value) {
     boardArr[row][col] = 1;
   } else {
     boardArr[row][col] = 0;
+  }
+}
+
+let handleWinning = function() {
+  if(weHaveAWinner) {
+    let randomColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    document.body.style.backgroundColor = randomColor;
+    setTimeout(() => handleWinning(), 100);
   }
 }
 
