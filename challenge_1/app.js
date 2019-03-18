@@ -29,8 +29,13 @@ let populateBoard = function(size) {
   
 }
 
+//Handle reset game
 document.getElementById('reset').addEventListener('click', () => {
-
+  board.innerHTML = ''; //Clear the board
+  boardArr = [];        //Reset internal board
+  Xturn = true;         //Set x to go first
+  weHaveAWinner = false;//We no longer have a winner
+  populateBoard(boardSize); //Put the board back on the screen
 });
 
 //Do stuff on cell click
