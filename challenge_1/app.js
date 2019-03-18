@@ -1,6 +1,4 @@
-//Logic for my tic tac toe game
-//Author: Nick Miron
-//March 18, 2019
+//Default values
 let board = document.getElementById('board');
 let boardSize = 3;
 let Xturn = true
@@ -32,9 +30,9 @@ let populateBoard = function(size) {
 //Handle reset game
 document.getElementById('reset').addEventListener('click', () => {
   board.innerHTML = ''; //Clear the board
-  document.body.style.backgroundColor = '#d3d3d3';
+  document.body.style.backgroundColor = '#7effea';
   boardArr = [];        //Reset internal board
-  Xturn = true;         //Set x to go first
+  Xturn = !Xturn;         //Set x to go first
   weHaveAWinner = false;//We no longer have a winner
   populateBoard(boardSize); //Put the board back on the screen
 });
@@ -51,7 +49,15 @@ let handleCellClick = function(row, cell) {
     //Handle winning condition
     if(checkForWinner(cellLoc)) {
       weHaveAWinner = true;
-      handleWinning();
+      
+      //Increment score
+      if (boardArr[cellLoc[0]][cellLoc[1]] === 1) {
+        document.getElementById('oneScore').innerText++;
+      } else {
+        document.getElementById('twoScore').innerText++;
+      }
+
+      handleWinning(cellLoc);
     }
   }
 }
@@ -166,6 +172,7 @@ let updateInternalBoard = function(loc, value) {
   }
 }
 
+//Flashes the win screen on a player winning
 let handleWinning = function() {
   if(weHaveAWinner) {
     let randomColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
@@ -174,5 +181,11 @@ let handleWinning = function() {
   }
 }
 
-populateBoard(boardSize);
-// handleCellClick();
+//Starts the game
+let startGame = function() {
+  populateBoard(boardSize);
+  document.getElementById('player1').innerText = prompt('Player One');
+  document.getElementById('player2').innerText = prompt('Player Two');
+
+}
+startGame();

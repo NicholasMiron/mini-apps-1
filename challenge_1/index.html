@@ -8,9 +8,32 @@
   <link rel='stylesheet' type='text/css' href='style.css'/>
 </head>
 <body>
-  <div id='board'>
+  <div id='rules'>
+    <h2>Game Rules</h2>
+    <ol>
+      <li>Player One is "X". Player Two is "O"</li>
+      <li>Players alternate turns</li>
+      <li>First player to get 3 in a row (up, down, or diagonally) wins</li>
+      <li>Game ends if all squares are full and no player has three in a row</li>
+    </ol>
   </div>
-  <button id='reset'>RESET GAME!!</button>
+  <div id='game'>
+    <div id='board'></div>
+    <div>
+      <button id='reset'>RESET GAME!!</button>
+    </div>
+  </div>
+  <div id='scoreboard'>
+      <h3>Current Score</h3>
+    <div id='players'>
+      <div id='player1'></div>
+      <div id='player2'></div>
+    </div>
+    <div id='score'>
+      <div id='oneScore'>0</div>
+      <div id='twoScore'>0</div>
+    </div>
+  </div>
   <script src='app.js'></script>
 </body>
 </html>
