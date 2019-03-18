@@ -5,6 +5,7 @@ let board = document.getElementById('board');
 let boardSize = 3;
 let Xturn = true
 let boardArr = [];
+let weHaveAWinner = false;
 
 
 //Creates a board of a given size
@@ -28,18 +29,24 @@ let populateBoard = function(size) {
   
 }
 
+document.getElementById('reset').addEventListener('click', () => {
+
+});
+
 //Do stuff on cell click
 let handleCellClick = function(row, cell) {
-  let cellValue = getXorO(cell); //Returns string x or o
-  let cellLoc = parseCellLocation(row.classList, cell.classList); //Returns matrix loc of clicked cell
-
-
-
-  cell.innerText = cellValue; //Update inner value of cell
-  updateInternalBoard(cellLoc, cellValue); //Update value of internal board
-
-
-  checkForWinner(cellLoc); //Check for a winner
+  if(!weHaveAWinner) {
+    let cellValue = getXorO(cell); //Returns string x or o
+    let cellLoc = parseCellLocation(row.classList, cell.classList); //Returns matrix loc of clicked cell
+    
+    cell.innerText = cellValue; //Update inner value of cell
+    updateInternalBoard(cellLoc, cellValue); //Update value of internal board
+    
+    //Handle winning condition
+    if(checkForWinner(cellLoc)) {
+      weHaveAWinner = true;
+    }
+  }
 }
 
 //Returns the value for whos turn it is X or O
@@ -53,22 +60,67 @@ let getXorO = function(cell) {
       return 'O';
     }
   } else {
-    console.log("You can't do that!!!!!");
     return cell.innerText;
   }
 }
 
+//Checks a given row for a winning combination
 let checkRowForWinner = function(row) {
-  console.log('im in here', row);
-  return false;
+  let firstVal = boardArr[row][0];
+  for (let i = 0; i < boardArr[row].length; i++) {
+    if (boardArr[row][i] === null) {
+      return false;
+    } 
+    if (boardArr[row][i] !== firstVal) {
+      return false;
+    }
+  }
+  return true;
 }
 
+//Checks a given column for a winning combination
 let checkColForWinner = function(col) {
-  return false;
+  let firstVal = boardArr[0][col];
+  for (let i = 0; i < boardArr.length; i++) {
+    if (boardArr[i][col] === null) {
+      return false;
+    }
+    if (boardArr[i][col] !== firstVal) {
+      return false;
+    }
+  }
+  return true;
 }
 
-let checkDiagonalForWinner = function(board) {
-  return false;
+//Checks the internal board for a winning minor diagonal
+let checkMinorDiagonalForWinner = function() {
+  let firstVal = boardArr[0][0];
+
+  for (let i = 0; i < boardArr.length; i++) {
+    if (boardArr[i][i] === null) {
+      return false;
+    }
+    if (boardArr[i][i] !== firstVal) {
+      return false;
+    }
+  }
+  return true;
+}
+
+//Checks the internal board for a winning major diagonal
+let checkMajorDiagonalForWinner = function() {
+  let firstVal = boardArr[0][boardArr.length - 1];
+  let count = boardArr.length - 1;
+  for (let i = 0; i < boardArr.length; i++) {
+    if (boardArr[i][count] === null) {
+      return false;
+    }
+    if (boardArr[i][count] !== firstVal) {
+      return false;
+    }
+    count--;
+  }
+  return true;
 }
 
 //Combines the row col and diagnoal checks
@@ -78,10 +130,13 @@ let checkForWinner = function(loc) {
     weGotAWinner = checkRowForWinner(loc[0]);
   }
   if(!weGotAWinner) {
-    weGotAWinner = checkColForWinner(boardArr, loc[1]);
+    weGotAWinner = checkColForWinner(loc[1]);
   }
   if(!weGotAWinner) {
-    weGotAWinner = checkDiagonalForWinner(boardArr);
+    weGotAWinner = checkMinorDiagonalForWinner();
+  }
+  if(!weGotAWinner) {
+    weGotAWinner = checkMajorDiagonalForWinner();
   }
   return weGotAWinner;
 }
