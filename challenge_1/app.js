@@ -1,5 +1,6 @@
 
 let board = document.getElementById('board');
+let Xturn = true
 
 //Creates a board of a given size
 let populateBoard = function(size) {
@@ -10,8 +11,8 @@ let populateBoard = function(size) {
     for(let j = 1; j <= size; j++) {
       let cell = document.createElement('div');
       cell.className = 'cell';
-      cell.innerText = 'x' + j;
-      cell.addEventListener('click', () => console.log(cell.innerHTML))
+      cell.innerText = i + '' + j;
+      cell.addEventListener('click', () => handleCellClick(cell))
       row.appendChild(cell);
     }
 
@@ -20,7 +21,20 @@ let populateBoard = function(size) {
   
 }
 
-  // document.getElementsById('board').addEventListener('click', console.log('he'));
+let handleCellClick = function(cell) {
+  cell.innerText = getXorO();
+  console.log(cell.innerText);
+}
+
+let getXorO = function() {
+  if (Xturn) {
+    Xturn = false;
+    return 'X';
+  } else {
+    Xturn = true;
+    return 'O';
+  }
+}
 
 populateBoard(3);
 // handleCellClick();
