@@ -56,11 +56,11 @@ let handleCellClick = function(row, cell) {
       } else {
         document.getElementById('twoScore').innerText++;
       }
-
+      
       handleWinning(cellLoc);
-    }
+    } 
   }
-}
+};
 
 //Returns the value for whos turn it is X or O
 let getXorO = function(cell) {
@@ -75,7 +75,7 @@ let getXorO = function(cell) {
   } else {
     return cell.innerText;
   }
-}
+};
 
 //Checks a given row for a winning combination
 let checkRowForWinner = function(row) {
@@ -89,7 +89,7 @@ let checkRowForWinner = function(row) {
     }
   }
   return true;
-}
+};
 
 //Checks a given column for a winning combination
 let checkColForWinner = function(col) {
@@ -103,7 +103,7 @@ let checkColForWinner = function(col) {
     }
   }
   return true;
-}
+};
 
 //Checks the internal board for a winning minor diagonal
 let checkMinorDiagonalForWinner = function() {
@@ -118,7 +118,7 @@ let checkMinorDiagonalForWinner = function() {
     }
   }
   return true;
-}
+};
 
 //Checks the internal board for a winning major diagonal
 let checkMajorDiagonalForWinner = function() {
@@ -134,7 +134,7 @@ let checkMajorDiagonalForWinner = function() {
     count--;
   }
   return true;
-}
+};
 
 //Combines the row col and diagnoal checks
 let checkForWinner = function(loc) {
@@ -152,14 +152,14 @@ let checkForWinner = function(loc) {
     weGotAWinner = checkMajorDiagonalForWinner();
   }
   return weGotAWinner;
-}
+};
 
 //Get the matrix index for cell
 let parseCellLocation = function(rowClasses, colClasses) {
   let rowIndex = parseInt(rowClasses[1].slice(3));
   let colIndex = parseInt(colClasses[1].slice(3));
   return [rowIndex, colIndex];
-}
+};
 
 //Add 1 or 0 to internal board corresponding to X or O
 let updateInternalBoard = function(loc, value) {
@@ -170,7 +170,7 @@ let updateInternalBoard = function(loc, value) {
   } else {
     boardArr[row][col] = 0;
   }
-}
+};
 
 //Flashes the win screen on a player winning
 let handleWinning = function() {
@@ -179,13 +179,14 @@ let handleWinning = function() {
     document.body.style.backgroundColor = randomColor;
     setTimeout(() => handleWinning(), 100);
   }
-}
+};
 
 //Starts the game
 let startGame = function() {
+  boardSize = prompt('How big of a board do you want (Default = 3)') || 3;
+  if(boardSize < 2) boardSize = 3;
   populateBoard(boardSize);
   document.getElementById('player1').innerText = prompt('Player One');
   document.getElementById('player2').innerText = prompt('Player Two');
-
-}
+};
 startGame();
