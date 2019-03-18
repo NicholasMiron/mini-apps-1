@@ -17,11 +17,13 @@
 
 .cell {
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 25px;
   height: 25px;
   padding: 12.5px 12.5px 12.5px 12.5px;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
   align-self: center;
 }
 
