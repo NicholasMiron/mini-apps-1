@@ -1,0 +1,25 @@
+{
+  "name": "report-generator",
+  "version": "1.0.0",
+  "description": "csv report generator",
+  "main": "server.js",
+  "scripts": {
+    "test": "none",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicholasMiron/hratx40-mini-apps-1.git"
+  },
+  "author": "nick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicholasMiron/hratx40-mini-apps-1/issues"
+  },
+  "homepage": "https://github.com/NicholasMiron/hratx40-mini-apps-1#readme",
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
