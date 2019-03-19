@@ -1,6 +1,14 @@
 
-document.getElementById('mysubmit').addEventListener('click', (e) => {
-  // e.preventDefault();
-  let formData = document.getElementById('mytextarea').value;
-  // console.log('hello there sexy', formData);
-})
+$(document).ready(function() {
+  $('#textForm').submit((e) => {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '/parser',
+      data: JSON.stringify(e.target[0].value),
+      success: () => {
+        console.log('hello');
+      }
+    })
+  });
+});

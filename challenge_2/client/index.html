@@ -5,10 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>CSV Report Generator</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+  <form id='textForm'>
+    <textarea name='textarea' id='mytextarea' style="width:40vw; height: 75vh;"></textarea>
+    <input id='textSubmit' type='submit' style="display: block;">
+  </form>
+  <h1>OR</h1>
   <form id='myform' action='/' method="POST" enctype="multipart/form-data">
-    <!-- <textarea name='textarea' id='mytextarea' style="width:40vw; height: 75vh;"></textarea> -->
     <input id='myfiles' name='myfiles' type="file" style="display:block;">
     <input id='mysubmit' type='submit' style="display:block;">
   </form>
