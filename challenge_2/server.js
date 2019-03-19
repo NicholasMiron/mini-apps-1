@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
+const multer = require('multer');
+const upload = multer({dest:'./uploads/'})
 
 // const jade = require('jade');
 const pug = require('pug');
@@ -19,25 +21,28 @@ app.get('/parser', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  // console.log(compiledIndex({
-  //   // csv:'Nick',
-  // }))
 
-  if(isValidJson(req.body.textarea) || isValidJson(JSON.stringify(req.body))) {
-    let data;
-    if(req.body.textarea) data = JSON.parse(req.body.textarea);
-    else data = req.body;
-    turnToCSV(data, (err, results) => {
-      if(err) {
-        res.send('Failed to generate csv');
-      } else {
-        console.log(results);
-        res.end(compiledIndex({csv: results}));
-      }
-    });
-  } else {
-    res.send('Invalid JSON');
-  }
+  let fileData = '';
+  req.on('data', (da) => {
+    fileData += da;
+  });
+  req.on('end', () => {
+    fileData = fileData.slice(fileData.indexOf('{'), fileData.lastIndexOf('}') + 1);
+    
+    if (isValidJson(fileData)) {
+      fileData = JSON.parse(fileData);
+      turnToCSV(fileData, (err, results) => {
+        if(err) {
+          res.send('Failed to generate csv');
+        } else {
+          console.log(results);
+          res.end(compiledIndex({csv: results}));
+        }
+    });`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    `
+    } else {
+      res.send('Invalid JSON');
+    }
+  });
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -52,6 +57,7 @@ let isValidJson = function(test) {
 }
 
 let turnToCSV = function(json, cb) {
+  console.log(json.children);
   if(json.children) {
 
     let output = '';

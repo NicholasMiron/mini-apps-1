@@ -7,9 +7,10 @@
   <title>CSV Report Generator</title>
 </head>
 <body>
-  <form id='myform' action='/' method="POST">
-    <textarea name='textarea' id='mytextarea' style="width:40vw; height: 75vh;"></textarea>
-    <input id='mysubmit' type="submit" style="display:block;">
+  <form id='myform' action='/' method="POST" enctype="multipart/form-data">
+    <!-- <textarea name='textarea' id='mytextarea' style="width:40vw; height: 75vh;"></textarea> -->
+    <input id='myfiles' name='myfiles' type="file" style="display:block;">
+    <input id='mysubmit' type='submit' style="display:block;">
   </form>
   <div id='csvs'></div>
   <script src="app.js"></script>
