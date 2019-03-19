@@ -13,18 +13,15 @@ app.set('view engine', 'pug');
 
 
 app.post('/parser', (req, res) => {
-  // let data = JSON.stringify(req.body);
-  let data = req.body;
-  console.log(typeof data,data);
-  // let data = JSON.parse(JSON.stringify(req.body));
+  let data = JSON.stringify(req.body);
+  console.log(data);
   if(isValidJson(data)) {
     data = JSON.parse(data);
-    console.log('in here', data)
     turnToCSV(data, (err, results) => {
       if (err) {
         res.send(compiledIndex({csv: 'Failed to generate csv'}))
       } else {
-        res.end(compiledIndex({csv: results}))
+        res.send(compiledIndex({csv: results}))
       }
     });
   } else {

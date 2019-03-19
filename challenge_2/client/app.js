@@ -5,9 +5,12 @@ $(document).ready(function() {
     $.ajax({
       type: 'POST',
       url: '/parser',
-      data: JSON.stringify(e.target[0].value),
-      success: () => {
-        console.log('hello');
+      contentType: 'application/json',
+      data: e.target[0].value,
+      success: (data) => {
+        console.log('data', data);
+        document.getElementById('app').innerHTML = data;
+        document.getElementById('output').innerHTML = document.getElementById('output').innerText;
       }
     })
   });
