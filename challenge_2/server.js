@@ -3,15 +3,26 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
+// const jade = require('jade');
+const pug = require('pug');
+const compiledIndex = pug.compileFile('./views/index.pug');
+
+
 app.use(express.static('./client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}))
+
+app.set('view engine', 'pug');
 
 app.get('/parser', (req, res) => {
   res.send('Hello World');
 });
 
-app.post('/parser', (req, res) => {
+app.post('/', (req, res) => {
+  // console.log(compiledIndex({
+  //   // csv:'Nick',
+  // }))
+
   if(isValidJson(req.body.textarea) || isValidJson(JSON.stringify(req.body))) {
     let data;
     if(req.body.textarea) data = JSON.parse(req.body.textarea);
@@ -20,7 +31,8 @@ app.post('/parser', (req, res) => {
       if(err) {
         res.send('Failed to generate csv');
       } else {
-        res.end(results);
+        console.log(results);
+        res.end(compiledIndex({csv: results}));
       }
     });
   } else {
@@ -54,8 +66,6 @@ let turnToCSV = function(json, cb) {
       }
     }
     
-    output = output.slice(0, -1);
-    output += '\n';
     if(cb) {
       cb(null, output);
     } else {
@@ -74,7 +84,7 @@ let turnToString = function(obj) {
     }
   }
   output = output.slice(0,-1);
-  return output += '\n';
+  return output += '<br>';
 }
 
 let getKeys = function(children) {
@@ -85,7 +95,7 @@ let getKeys = function(children) {
     }
   }
   output = output.slice(0,-1);
-  return output += '\n';
+  return output += '<br>';
 }
 
 // The server must flatten the JSON hierarchy, mapping each item/object in the JSON to a single line of CSV report 

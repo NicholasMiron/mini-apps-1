@@ -1,0 +1,11 @@
+doctype html
+html
+  body
+    <form id='myform' action='/' method="POST">
+      <textarea name='textarea' id='mytextarea' style="width:40vw; height: 75vh;"></textarea>
+      <input id='mysubmit' type="submit" style="display:block;">
+    </form>
+    p(id='output')=csv
+
+    script. 
+      document.getElementById('output').innerHTML = document.getElementById('output').innerText;
