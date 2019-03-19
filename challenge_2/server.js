@@ -12,13 +12,15 @@ app.get('/parser', (req, res) => {
 });
 
 app.post('/parser', (req, res) => {
-  if(isValidJson(req.body.textarea)) {
-    let data = JSON.parse(req.body.textarea);
+  if(isValidJson(req.body.textarea) || isValidJson(JSON.stringify(req.body))) {
+    let data;
+    if(req.body.textarea) data = JSON.parse(req.body.textarea);
+    else data = req.body;
     turnToCSV(data, (err, results) => {
       if(err) {
         res.send('Failed to generate csv');
       } else {
-        res.send(results);
+        res.end(results);
       }
     });
   } else {
@@ -29,7 +31,6 @@ app.post('/parser', (req, res) => {
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 let isValidJson = function(test) {
-  console.log('ehre');
   try {
     JSON.parse(test);
   } catch (e) {
