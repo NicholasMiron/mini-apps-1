@@ -1,88 +1,170 @@
-//Account Creation Form
-function Account(props) {
-  return (
-    <form>
+//Account Creation form
+class Account extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {
+        name: '',
+        email: '',
+        password: ''
+      }
+    }
+  }
+
+  handleChange(event) {
+    let current = this.state.formData;
+    current[event.target.id] = event.target.value;
+    this.setState({
+      formData: current
+    })
+  }
+
+  render() {
+    return (
+      <form>
       <p>
-        <label for='name'>Name: </label> 
-        <input name='name' id='name' type='text'></input>
+        <label htmlFor='name'>Name: 
+          <input name='name' id='name' type='text' onChange={(e) => this.handleChange(e)}></input>
+        </label> 
       </p>
       <p>
-        <label for='email'>Email: </label> 
-        <input name='email' id='email' type='text'></input>
+        <label htmlFor='email'>Email: 
+          <input name='email' id='email' type='text' onChange={(e) => this.handleChange(e)}></input>
+        </label> 
       </p>
       <p>
-        <label for='password'>Password: </label> 
-        <input name='password' id='password' type='text'></input>
+        <label htmlFor='password'>Password: 
+          <input name='password' id='password' type='text' onChange={(e) => this.handleChange(e)}></input>
+        </label> 
       </p>
-      <input type='submit'></input>
+      <input type='button' value='Next' onClick={() => this.props.accountButton(this.state.formData)}></input>
     </form>
   )
+  }
 }
 
-//Shipping Info Form
-function Shipping(props) {
-  return (
-    <form>
-      <p>
-        <label for='address1'>Address Line 1:</label>
-        <input name='address1' id='address1' type='text'></input>
-      </p>
-      <p>
-        <label for='address2'>Address Line 2:</label>
-        <input name='address2' id='address2' type='text'></input>
-      </p>
-      <p>
-        <label for='city'>City:</label>
-        <input name='city' id='city' type='text'></input>
-      </p>
-      <p>
-        <label for='state'>State:</label>
-        <input name='state' id='state' type='text'></input>
-      </p>
-      <p>
-        <label for='zipcode'>Zipcode:</label>
-        <input name='zipcode' id='zipcode' type='text'></input>
-      </p>
-      <p>
-        <label for='phone'>Phone Number:</label>
-        <input name='phone' id='phone' type='text'></input>
-      </p>
-      <input type='submit'></input>
-    </form>
-  )
+//Shipping Info form
+class Shipping extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        phone: ''
+      }
+    }
+  }
+
+  handleChange(event) {
+    let current = this.state.formData;
+    current[event.target.id] = event.target.value;
+    this.setState({
+      formData: current
+    })
+  }
+
+  render() {
+
+    return (
+      <form>
+        <p>
+          <label htmlFor='address1'>Address Line 1:
+            <input name='address1' id='address1' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <label htmlFor='address2'>Address Line 2:
+            <input name='address2' id='address2' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <label htmlFor='city'>City:
+            <input name='city' id='city' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <label htmlFor='state'>State:
+            <input name='state' id='state' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <label htmlFor='zipcode'>Zipcode:
+            <input name='zipcode' id='zipcode' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <label htmlFor='phone'>Phone Number:
+            <input name='phone' id='phone' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <input type='button' value='Next' onClick={() => this.props.shipButton(this.state.formData)}></input>
+      </form>
+    )
+  }
 }
 
-//Payment Form
-function Payment(props) {
-  return (
-    <form>
-      <p>
-        <label for='card'>Card:</label>
-        <input name='card' id='card' type='text'></input>
-      </p>
-      <p>
-        <label for='expiration'>Expiration Date:</label>
-        <input name='expiration' id='expiration' type='text'></input>
-      </p>
-      <p>
-        <label for='cvv'>CVV:</label>
-        <input name='cvv' id='cvv' type='text'></input>
-      </p>
-      <p>
-        <label for='billzip'>Billing Zipcode:</label>
-        <input name='billzip' id='billzip' type='text'></input>
-      </p>
-      <p>
-        <input type='submit'></input>
-      </p>
-    </form>
-  )
+//Payment form
+class Payment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {
+        card: '',
+        expiration: '',
+        cvv: '',
+        billzip: ''
+      }
+    }
+  }
+  
+  handleChange(event) {
+    let current = this.state.formData;
+    current[event.target.id] = event.target.value;
+    this.setState({
+      formData: current
+    })
+  }
+
+  render() {
+    return (
+      <form>
+        <p>
+          <label htmlFor='card'>Card:
+            <input name='card' id='card' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <label htmlFor='expiration'>Expiration Date:
+            <input name='expiration' id='expiration' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <label htmlFor='cvv'>CVV:
+            <input name='cvv' id='cvv' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <label htmlFor='billzip'>Billing Zipcode:
+            <input name='billzip' id='billzip' type='text' onChange={(e) => this.handleChange(e)}></input>
+          </label>
+        </p>
+        <p>
+          <input type='button' value='Next' onClick={() => this.props.payButton(this.state.formData)}></input>
+        </p>
+      </form>
+    )
+  }
 }
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      checkout:true,
       accountOn:false,
       shippingOn:false,
       paymentOn:false
@@ -90,18 +172,62 @@ class App extends React.Component {
   }
   
   handleCheckoutClick() {
-    console.log('hello');
+    this.setState({
+      accountOn: true,
+      checkout:false
+    })
+  }
+
+  handleAccountComplete(formData) {
+    console.log(formData);
+    this.setState({
+      accountOn: false,
+      shippingOn: true
+    })
+  }
+
+  handleShippingComplete(formData) {
+    console.log(formData)
+    this.setState({
+      shippingOn: false,
+      paymentOn: true
+    })
+  }
+
+  handlePaymentComplete(formData) {
+    console.log(formData)
+    this.setState({
+      paymentOn:false,
+      checkout: true
+    });
   }
 
   render() {
-    return(
-      <>
-        <button onClick={this.handleCheckoutClick}>Checkout</button>
-        <Account />
-        <Shipping />
-        <Payment />
-      </>
-    )
+    if(this.state.accountOn) {
+      return (
+        <>
+          <Account accountButton={this.handleAccountComplete.bind(this)} />
+        </>
+      )
+    } else if(this.state.shippingOn) {
+      return (
+        <>
+          <Shipping shipButton={this.handleShippingComplete.bind(this)} />
+        </>
+      )
+    } else if(this.state.paymentOn) {
+      return (
+        <>
+          <Payment payButton={this.handlePaymentComplete.bind(this)} />
+        </>
+      )
+    } else if(this.state.checkout) {
+      return(
+        <>
+          <button onClick={this.handleCheckoutClick.bind(this)}>Checkout</button>
+        </>
+      )
+    }
   }
 
 }
