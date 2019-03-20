@@ -1,0 +1,29 @@
+{
+  "name": "challenge_3",
+  "version": "1.0.0",
+  "description": "checkout",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "./node_modules/.bin/babel client --out-dir public --presets @babel/preset-react --source-maps inline --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicholasMiron/hratx40-mini-apps-1.git"
+  },
+  "author": "nick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicholasMiron/hratx40-mini-apps-1/issues"
+  },
+  "homepage": "https://github.com/NicholasMiron/hratx40-mini-apps-1#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
