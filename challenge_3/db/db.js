@@ -23,4 +23,8 @@ const addShipping = ({address1, address2, city, state, zipcode, phone, insertedI
   })
 }
 
+const addPayment = ({card, expiration, cvv, billzip, insertedID}, cb) => {
+  con.query(`INSERT INTO `)
+}
+
 module.exports = {getAllUsers, addUser, addShipping};

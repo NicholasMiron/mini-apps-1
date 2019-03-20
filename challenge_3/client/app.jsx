@@ -24,17 +24,17 @@ class Account extends React.Component {
       <form>
       <p>
         <label htmlFor='name'>Name: 
-          <input name='name' id='name' type='text' onChange={(e) => this.handleChange(e)}></input>
+          <input maxLength='20' name='name' id='name' type='text' onChange={(e) => this.handleChange(e)}></input>
         </label> 
       </p>
       <p>
         <label htmlFor='email'>Email: 
-          <input name='email' id='email' type='text' onChange={(e) => this.handleChange(e)}></input>
+          <input maxLength='50' name='email' id='email' type='text' onChange={(e) => this.handleChange(e)}></input>
         </label> 
       </p>
       <p>
         <label htmlFor='password'>Password: 
-          <input name='password' id='password' type='text' onChange={(e) => this.handleChange(e)}></input>
+          <input maxLength='20' name='password' id='password' type='text' onChange={(e) => this.handleChange(e)}></input>
         </label> 
       </p>
       <input type='button' value='Next' onClick={() => this.props.accountButton(this.state.formData)}></input>
@@ -73,32 +73,32 @@ class Shipping extends React.Component {
       <form>
         <p>
           <label htmlFor='address1'>Address Line 1:
-            <input name='address1' id='address1' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='40' name='address1' id='address1' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>
           <label htmlFor='address2'>Address Line 2:
-            <input name='address2' id='address2' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='40' name='address2' id='address2' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>
           <label htmlFor='city'>City:
-            <input name='city' id='city' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='20' name='city' id='city' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>
           <label htmlFor='state'>State:
-            <input name='state' id='state' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='15' name='state' id='state' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>
           <label htmlFor='zipcode'>Zipcode:
-            <input name='zipcode' id='zipcode' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='5' name='zipcode' id='zipcode' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>
           <label htmlFor='phone'>Phone Number:
-            <input name='phone' id='phone' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='10' name='phone' id='phone' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <input type='button' value='Next' onClick={() => this.props.shipButton(this.state.formData)}></input>
@@ -134,22 +134,22 @@ class Payment extends React.Component {
       <form>
         <p>
           <label htmlFor='card'>Card:
-            <input name='card' id='card' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='20' name='card' id='card' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>
           <label htmlFor='expiration'>Expiration Date:
-            <input name='expiration' id='expiration' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='4' name='expiration' id='expiration' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>
           <label htmlFor='cvv'>CVV:
-            <input name='cvv' id='cvv' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='5' name='cvv' id='cvv' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>
           <label htmlFor='billzip'>Billing Zipcode:
-            <input name='billzip' id='billzip' type='text' onChange={(e) => this.handleChange(e)}></input>
+            <input maxLength='5' name='billzip' id='billzip' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
         <p>

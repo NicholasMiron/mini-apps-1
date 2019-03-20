@@ -32,5 +32,6 @@ CREATE TABLE payment(
   FOREIGN KEY (userID) REFERENCES users(id) ON DELETE CASCADE
 );
 
+SET sql_mode = 'STRICT_ALL_TABLES';
 
 -- INSERT INTO users(name, email, password) VALUES('Billy', 'iamtomato@gmail.com', 'TOMMATERS');

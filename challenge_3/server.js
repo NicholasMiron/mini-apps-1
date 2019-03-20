@@ -31,18 +31,20 @@ app.post('/users', (req, res) => {
   let insertID;
   db.addUser(userData.account, (err, results) => {
     if (err) {
-      console.err('Failed to post user to db');
       res.send('Failed to post user to db');
     } else {
-      console.log('results', results)
       insertID = results.insertId;
-      console.log('insertId', insertID);
       userData.shipping.insertedID = insertID;
-      console.log(userData);
+      userData.payment.insertedID = insertID;
       db.addShipping(userData.shipping, (err, results) => {
         if (err) console.error(err);
         else {
-          res.send('success');
+          db.addPayment(userData.payment, (err, results) => {
+            if (err) console.error(err)
+            else {
+              res.end('success');
+            }
+          })
         }
       })
     }
