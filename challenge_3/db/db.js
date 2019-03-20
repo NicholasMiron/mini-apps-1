@@ -24,7 +24,11 @@ const addShipping = ({address1, address2, city, state, zipcode, phone, insertedI
 }
 
 const addPayment = ({card, expiration, cvv, billzip, insertedID}, cb) => {
-  con.query(`INSERT INTO `)
+  con.query(`INSERT INTO payment(cardNumber, expiration, cvv, billZip, userID) \
+  VALUES('${card}', '${expiration}', '${cvv}', '${billzip}', '${insertedID}')`, (err, res) => {
+    if (err) cb(err)
+    else cb(null, res)
+  })
 }
 
-module.exports = {getAllUsers, addUser, addShipping};
+module.exports = {getAllUsers, addUser, addShipping, addPayment};
