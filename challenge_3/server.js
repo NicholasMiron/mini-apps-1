@@ -1,7 +1,7 @@
 const db = require('./db/db.js');
 const express = require('express');
 const app = express();
-const port = 3050;
+const port = 65535;
 
 app.use(express.json({urlEncoded: true}));
 app.use(express.static('./public'));
@@ -27,13 +27,24 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/users', (req, res) => {
-  console.log(req.body);
-  db.addUser(req.body, (err, results) => {
+  let userData = req.body;
+  let insertID;
+  db.addUser(userData.account, (err, results) => {
     if (err) {
       console.err('Failed to post user to db');
       res.send('Failed to post user to db');
     } else {
-      res.send('Succsfully added user');
+      console.log('results', results)
+      insertID = results.insertId;
+      console.log('insertId', insertID);
+      userData.shipping.insertedID = insertID;
+      console.log(userData);
+      db.addShipping(userData.shipping, (err, results) => {
+        if (err) console.error(err);
+        else {
+          res.send('success');
+        }
+      })
     }
   })
 })

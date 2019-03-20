@@ -33,4 +33,4 @@ CREATE TABLE payment(
 );
 
 
-INSERT INTO users(name, email, password) VALUES('Billy', 'iamtomato@gmail.com', 'TOMMATERS');
+-- INSERT INTO users(name, email, password) VALUES('Billy', 'iamtomato@gmail.com', 'TOMMATERS');

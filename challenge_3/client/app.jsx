@@ -160,6 +160,37 @@ class Payment extends React.Component {
   }
 }
 
+//Confirmation Form
+function Confirmation({formData, goHome}) {
+  console.log(formData)
+  return (
+    <>
+      <h1>IS YOUR DATA WRITE</h1>
+      <div>
+        <h3>Account Info</h3>
+        <p>{formData.account.name}</p>
+        <p>{formData.account.email}</p>
+        <p>{formData.account.password}</p>
+        <h3>Shipping Info</h3>
+        <p>{formData.shipping.address1}</p>
+        <p>{formData.shipping.address2}</p>
+        <p>{formData.shipping.city}</p>
+        <p>{formData.shipping.state}</p>
+        <p>{formData.shipping.zipcode}</p>
+        <p>{formData.shipping.phone}</p>
+        <h3>Payment Info</h3>
+        <p>{formData.payment.card}</p>
+        <p>{formData.payment.expiration}</p>
+        <p>{formData.payment.cvv}</p>
+        <p>{formData.payment.billzip}</p>
+      </div>
+      <button onClick={() => goHome()}>TAKE ME MONEY</button>
+    </>
+  )
+}
+
+
+//Main app where some stuff happens
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -167,7 +198,11 @@ class App extends React.Component {
       checkout:true,
       accountOn:false,
       shippingOn:false,
-      paymentOn:false
+      paymentOn:false,
+      confirmation: false,
+      accountInfo: {},
+      shippingInfo: {},
+      paymentInfo: {}
     }
   }
   
@@ -182,7 +217,8 @@ class App extends React.Component {
     console.log(formData);
     this.setState({
       accountOn: false,
-      shippingOn: true
+      shippingOn: true,
+      accountInfo: formData
     })
   }
 
@@ -190,7 +226,8 @@ class App extends React.Component {
     console.log(formData)
     this.setState({
       shippingOn: false,
-      paymentOn: true
+      paymentOn: true,
+      shippingInfo: formData
     })
   }
 
@@ -198,8 +235,30 @@ class App extends React.Component {
     console.log(formData)
     this.setState({
       paymentOn:false,
-      checkout: true
+      confirmation: true,
+      paymentInfo: formData
     });
+  }
+
+  handleConfirmationComplete() {
+    this.setState({
+      confirmation: false,
+      checkout: true
+    })
+
+    const formData = {
+      "account": this.state.accountInfo,
+      "shipping": this.state.shippingInfo,
+      "payment": this.state.paymentInfo
+    }
+
+    fetch('/users', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
   }
 
   render() {
@@ -222,9 +281,20 @@ class App extends React.Component {
         </>
       )
     } else if(this.state.checkout) {
-      return(
+      return (
         <>
           <button onClick={this.handleCheckoutClick.bind(this)}>Checkout</button>
+        </>
+      )
+    } else if(this.state.confirmation) {
+      const formData = {
+        account: this.state.accountInfo,
+        shipping: this.state.shippingInfo,
+        payment: this.state.paymentInfo
+      }
+      return (
+        <>
+          <Confirmation formData={formData} goHome={this.handleConfirmationComplete.bind(this)}/>
         </>
       )
     }
