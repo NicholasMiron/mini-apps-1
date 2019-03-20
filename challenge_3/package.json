@@ -20,6 +20,7 @@
   "homepage": "https://github.com/NicholasMiron/hratx40-mini-apps-1#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "mysql": "^2.16.0",
     "nodemon": "^1.18.10"
   },
   "devDependencies": {

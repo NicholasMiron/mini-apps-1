@@ -31,3 +31,6 @@ CREATE TABLE payment(
   userID INT,
   FOREIGN KEY (userID) REFERENCES users(id) ON DELETE CASCADE
 );
+
+
+INSERT INTO users(name, email, password) VALUES('Billy', 'iamtomato@gmail.com', 'TOMMATERS');

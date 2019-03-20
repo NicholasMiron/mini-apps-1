@@ -6,12 +6,14 @@ class App extends React.Component {
     }
   }
   
+  handleCheckoutClick() {
+    console.log('hello');
+  }
 
   render() {
     return(
       <>
-        <div>We is tomato</div>
-        <div>We has tomato</div>
+        <button onClick={this.handleCheckoutClick}>Checkout</button>
       </>
     )
   }
