@@ -19,7 +19,8 @@ class Account extends React.Component {
     })
   } 
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     let {name, email, password, password2} = this.state.formData;
     if(name === '') {
       alert('Please fill in all fields (name)');
@@ -57,7 +58,7 @@ class Account extends React.Component {
           <input maxLength='20' name='password2' id='password2' type='password' onChange={(e) => this.handleChange(e)}></input>
         </label>
       </p>
-      <input type='submit' value='Next' onMouseUp={() => this.handleSubmit()}></input>
+      <input type='submit' value='Next' onMouseDown={(e) => this.handleSubmit(e)}></input>
     </form>
   )
   }
@@ -85,6 +86,24 @@ class Shipping extends React.Component {
     this.setState({
       formData: current
     })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    let {address1, address2, city, state, zipcode, phone} = this.state.formData;
+    if (address1 === '') {
+      alert('Please fill in all fields (address)');
+    } else if (city === '') {
+      alert('Please fill in all fields (city)');
+    } else if (state === '') {
+      alert('Please fill in all fields (state)');
+    } else if (zipcode === '') {
+      alert('Please fill in all fields (zipcode)');
+    } else if (phone === '') {
+      alert('Please fill in all fields (phone)');
+    } else {
+      this.props.shipButton(this.state.formData);
+    }
   }
 
   render() {
@@ -121,7 +140,7 @@ class Shipping extends React.Component {
             <input maxLength='10' name='phone' id='phone' type='text' onChange={(e) => this.handleChange(e)}></input>
           </label>
         </p>
-        <input type='button' value='Next' onClick={() => this.props.shipButton(this.state.formData)}></input>
+        <input type='submit' value='Next' onMouseDown={(e) => this.handleSubmit(e)}></input>
       </form>
     )
   }
@@ -149,6 +168,22 @@ class Payment extends React.Component {
     })
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    let {card, expiration, cvv, billzip} = this.state.props;
+    if (card === '') {
+      alert('Please fill in all fields (card number)');
+    } else if (expiration === '') {
+      alert('Please fill in all fields (expiration)');
+    } else if (cvv === '') {
+      alert('Please fill in all fields (cvv)');
+    } else if (billzip === '') {
+      alert('Please fill in all fields (zipcode)');
+    } else {
+      this.props.shipButton(this.state.formData);
+    }
+  }
+
   render() {
     return (
       <form>
@@ -173,7 +208,7 @@ class Payment extends React.Component {
           </label>
         </p>
         <p>
-          <input type='button' value='Next' onClick={() => this.props.payButton(this.state.formData)}></input>
+          <input type='submit' value='Next' onMouseDown={(e) => this.handleSubmit(e)}></input>
         </p>
       </form>
     )

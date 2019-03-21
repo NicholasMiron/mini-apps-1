@@ -1,0 +1,36 @@
+{
+  "name": "challenge_4",
+  "version": "1.0.0",
+  "description": "connectfour",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "react-dev": "webpack -d --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicholasMiron/hratx40-mini-apps-1.git"
+  },
+  "author": "nick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicholasMiron/hratx40-mini-apps-1/issues"
+  },
+  "homepage": "https://github.com/NicholasMiron/hratx40-mini-apps-1#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.10",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
+}
