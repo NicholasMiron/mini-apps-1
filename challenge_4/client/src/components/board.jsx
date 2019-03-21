@@ -24,7 +24,7 @@ export default class Board extends Component {
       }
       matrix.push(col);
     }
-    
+
     this.setState({
       matrix: matrix
     });
@@ -33,20 +33,23 @@ export default class Board extends Component {
   handleColClick(e) {
     let tempMatrix = this.state.matrix
     let targetCol = e.target.dataset.col
-    for (let i = 0; i < tempMatrix[targetCol].length; i++) {
-      if (tempMatrix[targetCol][i] === null) {
-        if(this.state.playerOneTurn) {
-          tempMatrix[targetCol][i] = 0;
-        } else {
-          tempMatrix[targetCol][i] = 1;
+    if(tempMatrix[targetCol][this.state.height - 1] === null) {
+
+      for (let i = 0; i < tempMatrix[targetCol].length; i++) {
+        if (tempMatrix[targetCol][i] === null) {
+          if(this.state.playerOneTurn) {
+            tempMatrix[targetCol][i] = 0;
+          } else {
+            tempMatrix[targetCol][i] = 1;
+          }
+          break;
         }
-        break;
       }
+      this.setState({
+        matrix: tempMatrix,
+        playerOneTurn: !this.state.playerOneTurn
+      });
     }
-    this.setState({
-      matrix: tempMatrix,
-      playerOneTurn: !this.state.playerOneTurn
-    });
   }
 
   renderColumns() {
