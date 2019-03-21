@@ -17,6 +17,21 @@ class Account extends React.Component {
     this.setState({
       formData: current
     })
+  } 
+
+  handleSubmit() {
+    let {name, email, password, password2} = this.state.formData;
+    if(name === '') {
+      alert('Please fill in all fields (name)');
+    } else if (email === '') {
+      alert('Please fill in all fields (email)');
+    } else if (password === '') {
+      alert('Please fill in all fields (password)');
+    } else if (password !== password2) {
+      alert("Passwords don't match");
+    } else {
+      this.props.accountButton(this.state.formData);
+    }
   }
 
   render() {
@@ -29,15 +44,20 @@ class Account extends React.Component {
       </p>
       <p>
         <label htmlFor='email'>Email: 
-          <input maxLength='50' name='email' id='email' type='text' onChange={(e) => this.handleChange(e)}></input>
+          <input maxLength='50' name='email' id='email' type='email' onChange={(e) => this.handleChange(e)}></input>
         </label> 
       </p>
       <p>
-        <label htmlFor='password'>Password: 
-          <input maxLength='20' name='password' id='password' type='text' onChange={(e) => this.handleChange(e)}></input>
+        <label htmlFor='password1'>Password: 
+          <input maxLength='20' name='password' id='password' type='password' onChange={(e) => this.handleChange(e)}></input>
         </label> 
       </p>
-      <input type='button' value='Next' onClick={() => this.props.accountButton(this.state.formData)}></input>
+      <p>
+        <label htmlFor='password2'>Confirm Password:
+          <input maxLength='20' name='password2' id='password2' type='password' onChange={(e) => this.handleChange(e)}></input>
+        </label>
+      </p>
+      <input type='submit' value='Next' onMouseUp={() => this.handleSubmit()}></input>
     </form>
   )
   }
@@ -214,7 +234,6 @@ class App extends React.Component {
   }
 
   handleAccountComplete(formData) {
-    console.log(formData);
     this.setState({
       accountOn: false,
       shippingOn: true,
@@ -223,12 +242,11 @@ class App extends React.Component {
   }
 
   handleShippingComplete(formData) {
-    console.log(formData)
-    this.setState({
-      shippingOn: false,
-      paymentOn: true,
-      shippingInfo: formData
-    })
+      this.setState({
+        shippingOn: false,
+        paymentOn: true,
+        shippingInfo: formData
+      })
   }
 
   handlePaymentComplete(formData) {

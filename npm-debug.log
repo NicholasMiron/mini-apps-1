@@ -1,0 +1,67 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/nicholasmiron/.nvm/versions/node/v6.13.1/bin/node',
+1 verbose cli   '/Users/nicholasmiron/.nvm/versions/node/v6.13.1/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'challenge_3' ]
+2 info using npm@3.10.10
+3 info using node@v6.13.1
+4 verbose config Skipping project config: /Users/nicholasmiron/.npmrc. (matches userconfig)
+5 silly loadCurrentTree Starting
+6 silly install loadCurrentTree
+7 silly install readLocalPackageData
+8 silly fetchPackageMetaData challenge_3
+9 silly fetchDirectoryPackageData challenge_3
+10 silly fetchPackageMetaData Error: Failed to parse json
+10 silly fetchPackageMetaData Trailing comma in object at 26:3
+10 silly fetchPackageMetaData   },
+10 silly fetchPackageMetaData   ^
+10 silly fetchPackageMetaData     at parseError (/Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:390:11)
+10 silly fetchPackageMetaData     at parseJson (/Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:79:23)
+10 silly fetchPackageMetaData     at /Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:48:5
+10 silly fetchPackageMetaData     at /Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:78:16
+10 silly fetchPackageMetaData     at tryToString (fs.js:457:3)
+10 silly fetchPackageMetaData     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:444:12)
+10 silly fetchPackageMetaData  error for challenge_3 { Error: Failed to parse json
+10 silly fetchPackageMetaData Trailing comma in object at 26:3
+10 silly fetchPackageMetaData   },
+10 silly fetchPackageMetaData   ^
+10 silly fetchPackageMetaData     at parseError (/Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:390:11)
+10 silly fetchPackageMetaData     at parseJson (/Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:79:23)
+10 silly fetchPackageMetaData     at /Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:48:5
+10 silly fetchPackageMetaData     at /Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:78:16
+10 silly fetchPackageMetaData     at tryToString (fs.js:457:3)
+10 silly fetchPackageMetaData     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:444:12)
+10 silly fetchPackageMetaData   code: 'EJSONPARSE',
+10 silly fetchPackageMetaData   file: '/Users/nicholasmiron/myProjects/hratx/Sprints/hratx40-mini-apps-1/challenge_3/package.json' }
+11 silly rollbackFailedOptional Starting
+12 silly rollbackFailedOptional Finishing
+13 silly runTopLevelLifecycles Finishing
+14 silly install printInstalled
+15 verbose stack Error: Failed to parse json
+15 verbose stack Trailing comma in object at 26:3
+15 verbose stack   },
+15 verbose stack   ^
+15 verbose stack     at parseError (/Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:390:11)
+15 verbose stack     at parseJson (/Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:79:23)
+15 verbose stack     at /Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/read-package-json/read-json.js:48:5
+15 verbose stack     at /Users/nicholasmiron/.nvm/versions/node/v6.13.1/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:78:16
+15 verbose stack     at tryToString (fs.js:457:3)
+15 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:444:12)
+16 verbose cwd /Users/nicholasmiron/myProjects/hratx/Sprints/hratx40-mini-apps-1
+17 error Darwin 18.2.0
+18 error argv "/Users/nicholasmiron/.nvm/versions/node/v6.13.1/bin/node" "/Users/nicholasmiron/.nvm/versions/node/v6.13.1/bin/npm" "install" "challenge_3"
+19 error node v6.13.1
+20 error npm  v3.10.10
+21 error file /Users/nicholasmiron/myProjects/hratx/Sprints/hratx40-mini-apps-1/challenge_3/package.json
+22 error code EJSONPARSE
+23 error Failed to parse json
+23 error Trailing comma in object at 26:3
+23 error   },
+23 error   ^
+24 error File: /Users/nicholasmiron/myProjects/hratx/Sprints/hratx40-mini-apps-1/challenge_3/package.json
+25 error Failed to parse package.json data.
+25 error package.json must be actual JSON, not just JavaScript.
+25 error
+25 error This is not a bug in npm.
+25 error Tell the package author to fix their package.json file. JSON.parse
+26 verbose exit [ 1, true ]
