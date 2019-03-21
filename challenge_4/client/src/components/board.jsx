@@ -7,6 +7,7 @@ export default class Board extends Component {
     this.state = {
       height: 6,
       width: 7,
+      connect: 4,
       playerOneTurn: true
     }
 
@@ -55,22 +56,31 @@ export default class Board extends Component {
         matrix: tempMatrix,
         playerOneTurn: !this.state.playerOneTurn
       }, () => {
-        if (!this.state.playerOneTurn) {
-          targetRow = this.state.matrix[targetCol].lastIndexOf(0);
+        let targetPlayer;
+        if(this.state.playerOneTurn) {
+          targetPlayer = 1;
         } else {
-          targetRow = this.state.matrix[targetCol].lastIndexOf(1);
+          targetPlayer = 0;
         }
-        this.checkForWin(targetCol, targetRow);
+        if (this.state.playerOneTurn) {
+          targetRow = this.state.matrix[targetCol].lastIndexOf(targetPlayer);
+        } else {
+          targetRow = this.state.matrix[targetCol].lastIndexOf(targetPlayer);
+        }
+        this.checkForWin(tempMatrix, targetCol, targetRow, targetPlayer);
 
       });
     }
   }
   
-  checkForWin(col, row) {
+  checkForWin(matrix, col, row, targetPlayer) {
     let someoneWon = false;
-    someoneWon = this.checkRowForWin(row);
+    someoneWon = this.checkRowForWin(matrix, row, targetPlayer);
     if(!someoneWon) {
-      someoneWon = this.checkColForWin(col);
+      someoneWon = this.checkColForWin(matrix, col, targetPlayer);
+    }
+    if(!someoneWon) {
+      someoneWon = this.checkForAnyMajorDiagWin(matrix, targetPlayer);
     }
 
     if(someoneWon) {
@@ -78,17 +88,10 @@ export default class Board extends Component {
     }
   }
 
-  checkColForWin(col) {
-    let tempMatrix = this.state.matrix;
+  checkColForWin(matrix, col, targetPlayer) {
     let inARow = 0;
-    let targetPlayer;
-    if(this.state.playerOneTurn) {
-      targetPlayer = 1;
-    } else {
-      targetPlayer = 0;
-    }
-    for (let i = 0; i < tempMatrix[col].length; i++) {
-      if (tempMatrix[col][i] === targetPlayer) {
+    for (let i = 0; i < matrix[col].length; i++) {
+      if (matrix[col][i] === targetPlayer) {
         inARow++;
       } else {
         inARow = 0;
@@ -100,23 +103,57 @@ export default class Board extends Component {
     return false;
   }
 
-  checkRowForWin(row) {
-    let tempMatrix = this.state.matrix;
+  checkRowForWin(matrix, row, targetPlayer) {
     let inARow = 0;
-    let targetPlayer;
-    if(this.state.playerOneTurn) {
-      targetPlayer = 1;
-    } else {
-      targetPlayer = 0;
-    }
-    for(let i = 0; i < tempMatrix.length; i++) {
-      if (tempMatrix[i][row] === targetPlayer) {
+    for(let i = 0; i < matrix.length; i++) {
+      if (matrix[i][row] === targetPlayer) {
         inARow++;
       } else {
         inARow = 0;
       }
       if (inARow === 4) {
         return true;
+      }
+    }
+    return false;
+  }
+
+  checkMajorDiagForWin(row, column, targetPlayer, matrix) {
+    let inARow = 0;
+    let aRow = row;
+    console.log(row,column)
+    let aCol = column;
+    for (let i = 0; i < this.state.connect; i++) {
+      console.log(matrix[aRow])
+      if (matrix[aRow[aCol]] !== undefined && matrix[aRow[aCol]] === targetPlayer) {
+        inARow++;
+      } else {
+        inARow = 0;
+      }
+      console.log(inARow)
+      if (inARow === this.state.connect) {
+        return true;
+      }
+      aRow++;
+      aCol++;
+    }
+    return false;
+  }
+
+  checkForAnyMajorDiagWin(matrix, targetPlayer) {
+    for (let i = 0; i < matrix.length - 3; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        let temp = [];
+        let tempI = i;
+        let tempJ = j;
+        for (let k = 0; k < this.state.connect; k++) {
+          temp.push(matrix[tempI][tempJ])
+          tempI++;
+          tempJ++;
+        }
+        if(temp[0] !== null && temp[0] === temp[1] && temp[1] === temp[2] && temp[2] === temp[3]) {
+          return true;
+        }
       }
     }
     return false;
