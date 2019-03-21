@@ -7,8 +7,7 @@ body, html {
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  text-align: center;
+  justify-content:center; 
 }
 
 .col {
@@ -16,14 +15,23 @@ body, html {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: space-around;
+  align-items: center;
   flex-grow: 1;
-  background-color: green;
+  max-width:22vh;
+  max-height: 80%;
+  background-color: yellow;
+  border:12px solid red;
 }
 
 .cell {
-  text-align: center;
+  width:100%;
   display: flex;
-  flex-grow: 1;
   border: 1px solid black;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  max-width: 11vh;
+  max-height: 11vh;
+  background-color:white;
 }
