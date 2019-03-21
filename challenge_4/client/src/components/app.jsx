@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Board from './board.jsx';
 
 export default class App extends Component {
   constructor(props) {
@@ -7,11 +8,11 @@ export default class App extends Component {
 
     }
   }
-  
+
   render() {
     return(
       <>
-        <h1>We is tomato</h1>
+        <Board />
       </>
     )
   }

@@ -1,0 +1,29 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.board {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.col {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: space-around;
+  flex-grow: 1;
+  background-color: green;
+}
+
+.cell {
+  text-align: center;
+  display: flex;
+  flex-grow: 1;
+  border: 1px solid black;
+}
