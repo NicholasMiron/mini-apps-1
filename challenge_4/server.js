@@ -5,10 +5,6 @@ const PORT = 10000;
 app.use(express.json({urlencoded: false}));
 app.use(express.static('client/dist'));
 
-app.get('/hello', (req, res) => {
-  res.send('hello');
-})
-
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 })
