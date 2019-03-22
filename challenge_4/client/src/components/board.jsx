@@ -32,8 +32,6 @@ class Board extends Component {
       width: userwidth,
       // connect: userconnect
     } );
-
-    
   }
 
   createMatrix(height = 6, width = 7) {
@@ -52,7 +50,6 @@ class Board extends Component {
   }
 
   handleColClick(e) {
-    //Only run if we don't have a winner
     if (!this.state.weHaveAWinner) {
 
       let tempMatrix = this.state.matrix
@@ -61,42 +58,50 @@ class Board extends Component {
       //Don't overfill the board
       if (tempMatrix[targetCol][this.state.height - 1] === null) {
 
-        //Change matrix to have new value
-        for (let i = 0; i < tempMatrix[targetCol].length; i++) {
-          if (tempMatrix[targetCol][i] === null) {
-            if (this.state.playerOneTurn) {
-              tempMatrix[targetCol][i] = 0;
-            } else {
-              tempMatrix[targetCol][i] = 1;
-            }
-            break;
-          }
-        }
+        tempMatrix = this.addPlayerMoveToCol(tempMatrix, targetCol)
 
         //Change matrix in state. Once done check for win
         this.setState({
           matrix: tempMatrix,
           playerOneTurn: !this.state.playerOneTurn
-        }, () => {
-          let targetPlayer;
-          let targetRow;
-
-          if (this.state.playerOneTurn) {
-            targetPlayer = 1;
-          } else {
-            targetPlayer = 0;
-          }
-
-          targetRow = this.state.matrix[targetCol].lastIndexOf(targetPlayer);
-
-          this.checkForWin(tempMatrix, targetCol, targetRow, targetPlayer);
-        });
+        }, () => this.checkForWin(tempMatrix, targetCol));
       }
     }
   }
+
+
+  checkForWin(tempMatrix, targetCol) {
+    let targetPlayer;
+    let targetRow;
+
+    if (this.state.playerOneTurn) {
+      targetPlayer = 1;
+    } else {
+      targetPlayer = 0;
+    }
+
+    targetRow = this.state.matrix[targetCol].lastIndexOf(targetPlayer);
+
+    this.checkForAnyWin(tempMatrix, targetCol, targetRow, targetPlayer);
+  }
+
+
+  addPlayerMoveToCol(tempMatrix, targetCol) {
+    for (let i = 0; i < tempMatrix[targetCol].length; i++) {
+      if (tempMatrix[targetCol][i] === null) {
+        if (this.state.playerOneTurn) {
+          tempMatrix[targetCol][i] = 0;
+        } else {
+          tempMatrix[targetCol][i] = 1;
+        }
+        break;
+      }
+    }
+    return tempMatrix
+  }
   
 
-  checkForWin(matrix, col, row, targetPlayer) {
+  checkForAnyWin(matrix, col, row, targetPlayer) {
     let someoneWon = false;
 
     if (!someoneWon) {
@@ -207,7 +212,6 @@ class Board extends Component {
   renderColumns() {
     let output = [];
     for (let i = 0; i < this.state.width; i++) {
-      console.log(this.state.matrix);
       output.push(<Column key={i} column={i} height={this.state.height} data-maCol={this.state.matrix[i]} doStuff={this.handleColClick}/>);
     }
     return output;
