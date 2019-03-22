@@ -1,31 +1,46 @@
 import React, {Component} from 'react';
 import Column from './column.jsx';
 
-export default class Board extends Component {
+class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
       height: 6,
       width: 7,
       connect: 4,
-      playerOneTurn: true
+      playerOneTurn: true,
+      weHaveAWinner: false
     }
 
     this.handleColClick = this.handleColClick.bind(this);
-    this.checkForWin = this.checkForWin.bind(this);
-    this.checkColForWin = this.checkColForWin.bind(this);
-    this.checkRowForWin = this.checkRowForWin.bind(this);
   }
   
   componentWillMount() {
     this.createMatrix();
   }
 
-  createMatrix() {
+  componentDidMount() {
+    let userheight = parseInt(window.prompt('How tall do you want your board? (Default 6)')) || 6;
+    let userwidth = parseInt(window.prompt('How wide do you want your board? (Default 7)')) || 7;
+    // Breaks if user input is too big???
+    // let userconnect = parseInt(window.prompt('How many do you want to connect? (Default 4')) || 4;
+
+    this.createMatrix(userheight, userwidth)
+
+    this.setState({
+      height: userheight,
+      width: userwidth,
+      // connect: userconnect
+    } );
+
+    
+  }
+
+  createMatrix(height = 6, width = 7) {
     const matrix = [];
-    for (let i = 0; i < this.state.width; i++) {
+    for (let i = 0; i < width; i++) {
       let col = [];
-      for (let j = 0; j < this.state.height; j++) {
+      for (let j = 0; j < height; j++) {
         col.push(null)
       }
       matrix.push(col);
@@ -37,56 +52,73 @@ export default class Board extends Component {
   }
 
   handleColClick(e) {
-    let tempMatrix = this.state.matrix
-    let targetCol = e.target.dataset.col
-    let targetRow;
-    if(tempMatrix[targetCol][this.state.height - 1] === null) {
+    //Only run if we don't have a winner
+    if (!this.state.weHaveAWinner) {
 
-      for (let i = 0; i < tempMatrix[targetCol].length; i++) {
-        if (tempMatrix[targetCol][i] === null) {
-          if(this.state.playerOneTurn) {
-            tempMatrix[targetCol][i] = 0;
-          } else {
-            tempMatrix[targetCol][i] = 1;
+      let tempMatrix = this.state.matrix
+      let targetCol = e.target.dataset.col
+      
+      //Don't overfill the board
+      if (tempMatrix[targetCol][this.state.height - 1] === null) {
+
+        //Change matrix to have new value
+        for (let i = 0; i < tempMatrix[targetCol].length; i++) {
+          if (tempMatrix[targetCol][i] === null) {
+            if (this.state.playerOneTurn) {
+              tempMatrix[targetCol][i] = 0;
+            } else {
+              tempMatrix[targetCol][i] = 1;
+            }
+            break;
           }
-          break;
         }
-      }
-      this.setState({
-        matrix: tempMatrix,
-        playerOneTurn: !this.state.playerOneTurn
-      }, () => {
-        let targetPlayer;
-        if(this.state.playerOneTurn) {
-          targetPlayer = 1;
-        } else {
-          targetPlayer = 0;
-        }
-        if (this.state.playerOneTurn) {
-          targetRow = this.state.matrix[targetCol].lastIndexOf(targetPlayer);
-        } else {
-          targetRow = this.state.matrix[targetCol].lastIndexOf(targetPlayer);
-        }
-        this.checkForWin(tempMatrix, targetCol, targetRow, targetPlayer);
 
-      });
+        //Change matrix in state. Once done check for win
+        this.setState({
+          matrix: tempMatrix,
+          playerOneTurn: !this.state.playerOneTurn
+        }, () => {
+          let targetPlayer;
+          let targetRow;
+
+          if (this.state.playerOneTurn) {
+            targetPlayer = 1;
+          } else {
+            targetPlayer = 0;
+          }
+
+          targetRow = this.state.matrix[targetCol].lastIndexOf(targetPlayer);
+
+          this.checkForWin(tempMatrix, targetCol, targetRow, targetPlayer);
+        });
+      }
     }
   }
   
+
   checkForWin(matrix, col, row, targetPlayer) {
     let someoneWon = false;
-    someoneWon = this.checkRowForWin(matrix, row, targetPlayer);
-    if(!someoneWon) {
+
+    if (!someoneWon) {
+      someoneWon = this.checkRowForWin(matrix, row, targetPlayer);
+    }
+    if (!someoneWon) {
       someoneWon = this.checkColForWin(matrix, col, targetPlayer);
     }
-    if(!someoneWon) {
-      someoneWon = this.checkForAnyMajorDiagWin(matrix, targetPlayer);
+    if (!someoneWon) {
+      someoneWon = this.checkForMajorDiagWin(matrix, targetPlayer);
+    }
+    if (!someoneWon) {
+      someoneWon = this.checkForMinorDiagWin(matrix, targetPlayer);
     }
 
-    if(someoneWon) {
-      console.log('Youre a winner')
+    if (someoneWon) {
+      this.setState({
+        weHaveAWinner: true
+      }, () => alert('Winner'))
     }
   }
+
 
   checkColForWin(matrix, col, targetPlayer) {
     let inARow = 0;
@@ -96,72 +128,86 @@ export default class Board extends Component {
       } else {
         inARow = 0;
       }
-      if(inARow === 4) {
+      console.log(inARow, this.state.connect)
+      if (inARow === this.state.connect) {
         return true;
       }
     }
     return false;
   }
 
+
   checkRowForWin(matrix, row, targetPlayer) {
     let inARow = 0;
-    for(let i = 0; i < matrix.length; i++) {
+    for (let i = 0; i < matrix.length; i++) {
       if (matrix[i][row] === targetPlayer) {
         inARow++;
       } else {
         inARow = 0;
       }
-      if (inARow === 4) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  checkMajorDiagForWin(row, column, targetPlayer, matrix) {
-    let inARow = 0;
-    let aRow = row;
-    console.log(row,column)
-    let aCol = column;
-    for (let i = 0; i < this.state.connect; i++) {
-      console.log(matrix[aRow])
-      if (matrix[aRow[aCol]] !== undefined && matrix[aRow[aCol]] === targetPlayer) {
-        inARow++;
-      } else {
-        inARow = 0;
-      }
-      console.log(inARow)
       if (inARow === this.state.connect) {
         return true;
       }
-      aRow++;
-      aCol++;
     }
     return false;
   }
 
-  checkForAnyMajorDiagWin(matrix, targetPlayer) {
+
+  checkForMajorDiagWin(matrix, targetPlayer) {
+    let inARow = 0;
     for (let i = 0; i < matrix.length - 3; i++) {
       for (let j = 0; j < matrix[i].length; j++) {
-        let temp = [];
         let tempI = i;
         let tempJ = j;
-        for (let k = 0; k < this.state.connect; k++) {
-          temp.push(matrix[tempI][tempJ])
+        for (let k = 1; k <= this.state.connect; k++) {
+          if (matrix[tempI][tempJ] === targetPlayer) {
+            inARow++;
+          } else {
+            inARow = 0;
+          }
+          if(inARow === this.state.connect) {
+            return true;
+          }
           tempI++;
           tempJ++;
         }
-        if(temp[0] !== null && temp[0] === temp[1] && temp[1] === temp[2] && temp[2] === temp[3]) {
-          return true;
-        }
+        inARow = 0;
       }
     }
     return false;
   }
+
+
+  checkForMinorDiagWin(matrix, targetPlayer) {
+    let inARow = 0;
+    for (let i = 0; i < matrix.length - 3; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        let tempI = i;
+        let tempJ = j;
+        for (let k = 1; k <= this.state.connect; k++) {
+          if (matrix[tempI][tempJ] === targetPlayer) {
+            inARow++;
+          } else {
+            inARow = 0;
+          }
+          if (inARow === this.state.connect) {
+            return true;
+          }          
+          tempI++;
+          tempJ--;
+        }
+        inARow = 0;
+      }
+    }
+    return false;
+  }
+
+
 
   renderColumns() {
     let output = [];
     for (let i = 0; i < this.state.width; i++) {
+      console.log(this.state.matrix);
       output.push(<Column key={i} column={i} height={this.state.height} data-maCol={this.state.matrix[i]} doStuff={this.handleColClick}/>);
     }
     return output;
@@ -175,3 +221,5 @@ export default class Board extends Component {
     )
   }
 }
+
+export default Board;

@@ -6,7 +6,7 @@ const Cell = (props) => {
     'backgroundColor': 'white'
   }
 
-  if(props.maCol === 0) {
+  if (props.maCol === 0) {
     divStyle['backgroundColor'] = 'black';
   } else if (props.maCol === 1) {
     divStyle['backgroundColor'] = 'red';

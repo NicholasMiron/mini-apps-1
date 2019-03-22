@@ -20,7 +20,7 @@ body, html {
   max-width:22vh;
   max-height: 80%;
   background-color: yellow;
-  border:12px solid red;
+  outline:12px solid red;
 }
 
 .cell {

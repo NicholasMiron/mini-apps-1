@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 10000;
+const PORT = 65535;
 
 app.use(express.json({urlencoded: false}));
 app.use(express.static('client/dist'));
