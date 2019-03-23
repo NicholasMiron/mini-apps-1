@@ -76,3 +76,11 @@ body, html {
   font-size: 3vh;
   font-weight: 600;
 }
+
+.winnerWinnerChickenDinner {
+  font-size: 35vh;
+  transform: rotate(325deg);
+  position: fixed;
+  margin: 32vh 1vh;
+  opacity: .5;
+}

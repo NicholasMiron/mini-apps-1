@@ -43,6 +43,7 @@ class Board extends Component {
     this.setState({
       height: userheight,
       width: userwidth,
+      weHaveAWinner: false
       // connect: userconnect
     } );
   }
@@ -50,7 +51,7 @@ class Board extends Component {
   createMatrix(height = this.state.height, width = this.state.width) {
     const matrix = [];
     for (let i = 0; i < width; i++) {
-      let col = [];
+      const col = [];
       for (let j = 0; j < height; j++) {
         col.push(null)
       }
@@ -83,7 +84,6 @@ class Board extends Component {
     }
   }
 
-
   checkForWin(tempMatrix, targetCol, playerOneTurn, connect) {
     let targetPlayer;
     if (playerOneTurn) targetPlayer = 1 
@@ -103,7 +103,6 @@ class Board extends Component {
     });
   }
 
-
   addPlayerMoveToCol(tempMatrix, targetCol) {
     for (let i = 0; i < tempMatrix[targetCol].length; i++) {
       if (tempMatrix[targetCol][i] === null) {
@@ -118,10 +117,6 @@ class Board extends Component {
     return tempMatrix
   }
   
-
-  
-
-
   renderColumns() {
     let output = [];
     for (let i = 0; i < this.state.width; i++) {
@@ -131,6 +126,7 @@ class Board extends Component {
   }
 
   render() {
+    let winStyle = {'display': this.state.weHaveAWinner ? 'block' : 'none'}
     return (
       <>
         <button onClick={this.resetGame.bind(this)}>Reset</button>
@@ -138,6 +134,7 @@ class Board extends Component {
         <div className='board'>
           {this.renderColumns()} 
         </div>
+        <div className='winnerWinnerChickenDinner' style={winStyle}>WINNER!</div>
       </>
     )
   }
