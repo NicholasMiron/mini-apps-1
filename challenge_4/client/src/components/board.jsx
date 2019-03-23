@@ -19,20 +19,20 @@ class Board extends Component {
     this.createMatrix();
   }
 
-  componentDidMount() {
-    let userheight = parseInt(window.prompt('How tall do you want your board? (Default 6)')) || 6;
-    let userwidth = parseInt(window.prompt('How wide do you want your board? (Default 7)')) || 7;
-    // Breaks if user input is too big???
-    // let userconnect = parseInt(window.prompt('How many do you want to connect? (Default 4')) || 4;
+  // componentDidMount() {
+  //   let userheight = parseInt(window.prompt('How tall do you want your board? (Default 6)')) || 6;
+  //   let userwidth = parseInt(window.prompt('How wide do you want your board? (Default 7)')) || 7;
+  //   // Breaks if user input is too big???
+  //   // let userconnect = parseInt(window.prompt('How many do you want to connect? (Default 4')) || 4;
+  //   console.log('hello');
+  //   this.createMatrix(userheight, userwidth)
 
-    this.createMatrix(userheight, userwidth)
-
-    this.setState({
-      height: userheight,
-      width: userwidth,
-      // connect: userconnect
-    } );
-  }
+  //   this.setState({
+  //     height: userheight,
+  //     width: userwidth,
+  //     // connect: userconnect
+  //   } );
+  // }
 
   createMatrix(height = 6, width = 7) {
     const matrix = [];
@@ -50,6 +50,7 @@ class Board extends Component {
   }
 
   handleColClick(e) {
+    // e.preventDefault();
     if (!this.state.weHaveAWinner) {
 
       let tempMatrix = this.state.matrix
@@ -220,7 +221,7 @@ class Board extends Component {
   render() {
     return (
       <div className='board'>
-        {this.renderColumns()}
+        {this.renderColumns()} 
       </div>
     )
   }

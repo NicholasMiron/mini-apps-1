@@ -3,8 +3,20 @@ body, html {
   padding: 0;
 }
 
-.board {
+#app {
+  width: 100vw;
   height: 100vh;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board {
+  height: 90vh;
+  width: 85vw;
+
   display: flex;
   align-items: center;
   justify-content:center; 
@@ -12,26 +24,53 @@ body, html {
 
 .col {
   height: 100%;
+  max-width:22vh;
+  max-height: 80%;
+
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-around;
   align-items: center;
   flex-grow: 1;
-  max-width:22vh;
-  max-height: 80%;
+
   background-color: yellow;
   outline:12px solid red;
 }
 
 .cell {
   width:100%;
+  max-width: 11vh;
+  max-height: 11vh;
+
   display: flex;
-  border: 1px solid black;
-  border-radius: 50%;
   align-items: center;
   justify-content: center;
   flex-grow: 1;
-  max-width: 11vh;
-  max-height: 11vh;
+
   background-color:white;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.scoreboard {
+  width:50%;
+  height: 10%;
+  margin-top: 2%;
+  
+  display: flex;
+  justify-content: space-around;
+
+  background-color:red;
+}
+
+.player {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.playername {
+  font-size: 3vh;
+  font-weight: 600;
 }
