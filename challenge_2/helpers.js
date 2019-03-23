@@ -55,5 +55,4 @@ const getKeys = function(children) {
   return output += '<br>';
 }
 
-const hell0 = () => console.log('hello')
-module.exports = {isValidJson, turnToCSV, turnToString, getKeys, hell0}
+module.exports = {isValidJson, turnToCSV, turnToString, getKeys}
