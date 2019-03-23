@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Column from './column.jsx';
+import checkForAnyWin from './boardHelpers.jsx' 
 
 class Board extends Component {
   constructor(props) {
@@ -77,25 +78,29 @@ class Board extends Component {
         this.setState({
           matrix: tempMatrix,
           playerOneTurn: !this.state.playerOneTurn
-        }, () => this.checkForWin(tempMatrix, targetCol));
+        }, () => this.checkForWin(tempMatrix, targetCol, this.state.playerOneTurn, this.state.connect));
       }
     }
   }
 
 
-  checkForWin(tempMatrix, targetCol) {
+  checkForWin(tempMatrix, targetCol, playerOneTurn, connect) {
     let targetPlayer;
+    if (playerOneTurn) targetPlayer = 1 
+    else targetPlayer = 0
+    
     let targetRow;
-
-    if (this.state.playerOneTurn) {
-      targetPlayer = 1;
-    } else {
-      targetPlayer = 0;
-    }
-
     targetRow = this.state.matrix[targetCol].lastIndexOf(targetPlayer);
 
-    this.checkForAnyWin(tempMatrix, targetCol, targetRow, targetPlayer);
+    checkForAnyWin(tempMatrix, targetCol, targetRow, targetPlayer, connect, winner => {
+      if (winner) {
+        this.setState({
+          weHaveAWinner: true
+        }, () => {
+          this.props.handleWin(targetPlayer);
+        }) 
+      }
+    });
   }
 
 
@@ -114,114 +119,7 @@ class Board extends Component {
   }
   
 
-  checkForAnyWin(matrix, col, row, targetPlayer) {
-    let someoneWon = false;
-
-    if (!someoneWon) {
-      someoneWon = this.checkRowForWin(matrix, row, targetPlayer);
-    }
-    if (!someoneWon) {
-      someoneWon = this.checkColForWin(matrix, col, targetPlayer);
-    }
-    if (!someoneWon) {
-      someoneWon = this.checkForMajorDiagWin(matrix, targetPlayer);
-    }
-    if (!someoneWon) {
-      someoneWon = this.checkForMinorDiagWin(matrix, targetPlayer);
-    }
-
-    if (someoneWon) {
-      this.setState({
-        weHaveAWinner: true
-      }, () => {
-        this.props.handleWin(targetPlayer);
-      })
-    }
-  }
-
-
-  checkColForWin(matrix, col, targetPlayer) {
-    let inARow = 0;
-    for (let i = 0; i < matrix[col].length; i++) {
-      if (matrix[col][i] === targetPlayer) {
-        inARow++;
-      } else {
-        inARow = 0;
-      }
-      console.log(inARow, this.state.connect)
-      if (inARow === this.state.connect) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-
-  checkRowForWin(matrix, row, targetPlayer) {
-    let inARow = 0;
-    for (let i = 0; i < matrix.length; i++) {
-      if (matrix[i][row] === targetPlayer) {
-        inARow++;
-      } else {
-        inARow = 0;
-      }
-      if (inARow === this.state.connect) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-
-  checkForMajorDiagWin(matrix, targetPlayer) {
-    let inARow = 0;
-    for (let i = 0; i < matrix.length - 3; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
-        let tempI = i;
-        let tempJ = j;
-        for (let k = 1; k <= this.state.connect; k++) {
-          if (matrix[tempI][tempJ] === targetPlayer) {
-            inARow++;
-          } else {
-            inARow = 0;
-          }
-          if(inARow === this.state.connect) {
-            return true;
-          }
-          tempI++;
-          tempJ++;
-        }
-        inARow = 0;
-      }
-    }
-    return false;
-  }
-
-
-  checkForMinorDiagWin(matrix, targetPlayer) {
-    let inARow = 0;
-    for (let i = 0; i < matrix.length - 3; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
-        let tempI = i;
-        let tempJ = j;
-        for (let k = 1; k <= this.state.connect; k++) {
-          if (matrix[tempI][tempJ] === targetPlayer) {
-            inARow++;
-          } else {
-            inARow = 0;
-          }
-          if (inARow === this.state.connect) {
-            return true;
-          }          
-          tempI++;
-          tempJ--;
-        }
-        inARow = 0;
-      }
-    }
-    return false;
-  }
-
+  
 
 
   renderColumns() {
