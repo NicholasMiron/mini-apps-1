@@ -9,7 +9,8 @@ class Board extends Component {
       width: 7,
       connect: 4,
       playerOneTurn: true,
-      weHaveAWinner: false
+      weHaveAWinner: false,
+      score: [0, 0]
     }
 
     this.handleColClick = this.handleColClick.bind(this);
@@ -19,22 +20,30 @@ class Board extends Component {
     this.createMatrix();
   }
 
-  // componentDidMount() {
-  //   let userheight = parseInt(window.prompt('How tall do you want your board? (Default 6)')) || 6;
-  //   let userwidth = parseInt(window.prompt('How wide do you want your board? (Default 7)')) || 7;
-  //   // Breaks if user input is too big???
-  //   // let userconnect = parseInt(window.prompt('How many do you want to connect? (Default 4')) || 4;
-  //   console.log('hello');
-  //   this.createMatrix(userheight, userwidth)
+  componentDidMount() {
+    let userheight = parseInt(window.prompt('How tall do you want your board? (Default 6)')) || 6;
+    let userwidth = parseInt(window.prompt('How wide do you want your board? (Default 7)')) || 7;
+    // Breaks if user input is too big???
+    // let userconnect = parseInt(window.prompt('How many do you want to connect? (Default 4')) || 4;
+    console.log('hello');
+    this.createMatrix(userheight, userwidth)
 
-  //   this.setState({
-  //     height: userheight,
-  //     width: userwidth,
-  //     // connect: userconnect
-  //   } );
-  // }
+    this.setState({
+      height: userheight,
+      width: userwidth,
+      // connect: userconnect
+    } );
+  }
 
-  createMatrix(height = 6, width = 7) {
+  resetGame() {
+    this.createMatrix();
+    this.setState({
+      playerOneTurn: true,
+      weHaveAWinner: false
+    })
+  }
+
+  createMatrix(height = this.state.height, width = this.state.width) {
     const matrix = [];
     for (let i = 0; i < width; i++) {
       let col = [];
@@ -121,7 +130,9 @@ class Board extends Component {
     if (someoneWon) {
       this.setState({
         weHaveAWinner: true
-      }, () => alert('Winner'))
+      }, () => {
+        this.props.handleWin(targetPlayer);
+      })
     }
   }
 
@@ -220,9 +231,12 @@ class Board extends Component {
 
   render() {
     return (
-      <div className='board'>
-        {this.renderColumns()} 
-      </div>
+      <>
+        <button onClick={this.resetGame.bind(this)}>Reset</button>
+        <div className='board'>
+          {this.renderColumns()} 
+        </div>
+      </>
     )
   }
 }

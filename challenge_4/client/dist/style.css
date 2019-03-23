@@ -60,7 +60,9 @@ body, html {
   display: flex;
   justify-content: space-around;
 
-  background-color:red;
+  background-color: #50e240;
+  border: 2px solid #44d46f;
+  border-radius: 12px;
 }
 
 .player {
